@@ -2,6 +2,7 @@ const { Builder, By } = require("selenium-webdriver");
 const fs = require("fs");
 const csv = require("csv-parser");
 const path = require("path");
+const { encode } = require("punycode");
 
 async function webScraper() {
   // Create a new Chrome browser instance and navigate to the website URL.
@@ -79,7 +80,12 @@ async function webScraper() {
     for (let i = 0; i < titles.length; i++) {
       console.log(`Title: ${titles[i]}, Price: ${prices[i]}`);
     }
-    // save the current results into a csv file
+    // save the current data into a csv file
+    let csvContent = "Title, Price\n";
+    for (let i = 0; i < titles.length; i++) {
+      csvContent += `"${titles[i]}", "${prices[i]}"\n`;
+    }
+    fs.writeFileSync("Docs/laptops.csv", csvContent, "utf-8");
   } catch (error) {
     console.error("Error:", error);
   } finally {

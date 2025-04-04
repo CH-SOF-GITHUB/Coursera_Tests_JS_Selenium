@@ -40,7 +40,7 @@ async function scrapeBooks() {
     for(let i = 0; i < titles.length; i++) {
         cvsContent += `"${titles[i]}","${prices[i]}"\n`;
     }
-    fs.writeFileSync("books.csv", cvsContent);
+    fs.writeFileSync("Docs/books.csv", cvsContent, "utf-8");
   } catch (error) {
     console.error("Error:", error);
   } finally {
